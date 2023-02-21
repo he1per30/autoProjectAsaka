@@ -1,0 +1,12 @@
+BROKER SCHEMA ad.testsystem.testapp.v1
+
+
+CREATE COMPUTE MODULE rq_ErrReqLogic
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.Properties = InputRoot.Properties;
+		SET OutputLocalEnvironment = InputLocalEnvironment;
+		SET OutputLocalEnvironment.Destination.HTTP.ReplyStatusCode = 500;
+		RETURN TRUE;
+	END;
+END MODULE;
