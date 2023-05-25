@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmMQInput.msgnode="ComIbmMQInput.msgnode" xmlns:ComIbmMQOutput.msgnode="ComIbmMQOutput.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:mc_config_v1_Config.subflow="mc/config/v1/Config.subflow" xmlns:mc_err_v1_Err.subflow="mc/err/v1/Err.subflow" xmlns:mc_sync_v1_SyncResp.subflow="mc/sync/v1/SyncResp.subflow"
+    xmlns:mch_log_Log.subflow="mch/log/Log.subflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="ad/testsystem/testapp/v1/rs.msgflow" nsPrefix="ad_testsystem_testapp_v1_rs.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.QU02_SN" name="QU02_SN" lowerBound="1" defaultValueLiteral="TEST.SN">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.QU03_LG" name="QU03_LG" defaultValueLiteral="SR.LOGGER.V1.RQ">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.QU04_RS" name="QU04_RS" lowerBound="1" defaultValueLiteral="TEST.RS">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.QU05_OT" name="QU05_OT" defaultValueLiteral="TEST.OT">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.LF02_RS" name="LF02_RS" defaultValueLiteral="/var/mqsi/logs/">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.LL05_RESP_START" name="LL05_RESP_START" defaultValueLiteral="2">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.LL06_RESP_FINISH" name="LL06_RESP_FINISH" defaultValueLiteral="2">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.LL07_RESP_ERROR" name="LL07_RESP_ERROR" defaultValueLiteral="2">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="Property.LL08_RESP_ERROR_REPLY" name="LL08_RESP_ERROR_REPLY" defaultValueLiteral="2">
+      <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+    <translation xmi:type="utility:TranslatableString" key="rs" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Ad.TestSystem.testApp.V1/icons/full/obj16/rs.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/Ad.TestSystem.testApp.V1/icons/full/obj30/rs.gif"/>
+    <composition>
+      <nodes xmi:type="mc_config_v1_Config.subflow:FCMComposite_1" xmi:id="FCMComposite_1_1" location="101,20">
+        <translation xmi:type="utility:ConstantString" string="Config"/>
+      </nodes>
+      <nodes xmi:type="mc_sync_v1_SyncResp.subflow:FCMComposite_1" xmi:id="FCMComposite_1_2" location="311,101">
+        <translation xmi:type="utility:ConstantString" string="SyncResp"/>
+      </nodes>
+      <nodes xmi:type="mch_log_Log.subflow:FCMComposite_1" xmi:id="FCMComposite_1_3" location="195,101">
+        <translation xmi:type="utility:ConstantString" string="LogRespStart"/>
+      </nodes>
+      <nodes xmi:type="mc_err_v1_Err.subflow:FCMComposite_1" xmi:id="FCMComposite_1_4" location="202,20">
+        <translation xmi:type="utility:ConstantString" string="Err"/>
+      </nodes>
+      <nodes xmi:type="mch_log_Log.subflow:FCMComposite_1" xmi:id="FCMComposite_1_5" location="627,101">
+        <translation xmi:type="utility:ConstantString" string="LogRespFinish"/>
+      </nodes>
+      <nodes xmi:type="mch_log_Log.subflow:FCMComposite_1" xmi:id="FCMComposite_1_10" location="524,20">
+        <translation xmi:type="utility:ConstantString" string="LogErrReply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_14" location="304,20" computeExpression="esql://routine/ad.testsystem.testapp.v1#rs_ErrRespLogic.Main">
+        <translation xmi:type="utility:ConstantString" string="ErrRespLogic"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_15" location="421,101" computeExpression="esql://routine/ad.testsystem.testapp.v1#rs_RespLogic.Main">
+        <translation xmi:type="utility:ConstantString" string="RespLogic"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="10,20" messageDomainProperty="JSON">
+        <translation xmi:type="utility:ConstantString" string="MQ Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_7" location="412,20" transactionMode="no">
+        <translation xmi:type="utility:ConstantString" string="MQErrOutput"/>
+      </nodes>
+      <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="525,101">
+        <translation xmi:type="utility:ConstantString" string="MQ Output"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.Output2" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="FCMComposite_1_3" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.Output1" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_4" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_11" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_16" targetNode="FCMComposite_1_14" sourceNode="FCMComposite_1_4" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_18" targetNode="FCMComposite_1_15" sourceNode="FCMComposite_1_2" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_3" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.failure" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_4" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input1"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_5" targetNode="FCMComposite_1_1" sourceNode="FCMComposite_1_6" sourceTerminalName="OutTerminal.catch" targetTerminalName="InTerminal.Input2"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_6" targetNode="FCMComposite_1_7" sourceNode="FCMComposite_1_14" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_7" targetNode="FCMComposite_1_10" sourceNode="FCMComposite_1_7" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_8" sourceNode="FCMComposite_1_15" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_9" targetNode="FCMComposite_1_5" sourceNode="FCMComposite_1_8" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+    </composition>
+    <propertyOrganizer>
+      <propertyDescriptor groupName="Group.MQ" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.mq.MQQueueNameEditor" configurable="true" describedAttribute="Property.QU02_SN">
+        <propertyName xmi:type="utility:TranslatableString" key="Property.QU02_SN" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+        <propertyDescriptor groupName="Group.MQ" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.mq.MQQueueNameEditor" configurable="true" describedAttribute="Property.QU03_LG">
+          <propertyName xmi:type="utility:TranslatableString" key="Property.QU03_LG" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+          <propertyDescriptor groupName="Group.MQ" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.mq.MQQueueNameEditor" configurable="true" describedAttribute="Property.QU04_RS">
+            <propertyName xmi:type="utility:TranslatableString" key="Property.QU04_RS" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+            <propertyDescriptor groupName="Group.MQ" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.mq.MQQueueNameEditor" configurable="true" describedAttribute="Property.QU05_OT">
+              <propertyName xmi:type="utility:TranslatableString" key="Property.QU05_OT" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+              <propertyDescriptor groupName="Group.LG" propertyEditor="com.ibm.etools.mft.ibmnodes.editors.file.FileNodesBrowseDirPropertyEditor" configurable="true" describedAttribute="Property.LF02_RS">
+                <propertyName xmi:type="utility:TranslatableString" key="Property.LF02_RS" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+                <propertyDescriptor groupName="Group.LG" configurable="true" userDefined="true" describedAttribute="Property.LL05_RESP_START">
+                  <propertyName xmi:type="utility:TranslatableString" key="Property.LL05_RESP_START" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+                  <propertyDescriptor groupName="Group.LG" configurable="true" userDefined="true" describedAttribute="Property.LL06_RESP_FINISH">
+                    <propertyName xmi:type="utility:TranslatableString" key="Property.LL06_RESP_FINISH" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+                    <propertyDescriptor groupName="Group.LG" configurable="true" userDefined="true" describedAttribute="Property.LL07_RESP_ERROR">
+                      <propertyName xmi:type="utility:TranslatableString" key="Property.LL07_RESP_ERROR" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+                      <propertyDescriptor groupName="Group.LG" configurable="true" userDefined="true" describedAttribute="Property.LL08_RESP_ERROR_REPLY">
+                        <propertyName xmi:type="utility:TranslatableString" key="Property.LL08_RESP_ERROR_REPLY" bundleName="ad/testsystem/testapp/v1/rs" pluginId="Ad.TestSystem.testApp.V1"/>
+                      </propertyDescriptor>
+                    </propertyDescriptor>
+                  </propertyDescriptor>
+                </propertyDescriptor>
+              </propertyDescriptor>
+            </propertyDescriptor>
+          </propertyDescriptor>
+        </propertyDescriptor>
+      </propertyDescriptor>
+    </propertyOrganizer>
+    <attributeLinks promotedAttribute="Property.QU02_SN" overriddenNodes="FCMComposite_1_2">
+      <overriddenAttribute href="mc/sync/v1/SyncResp.subflow#Property.SYNC_QUEUE"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.QU03_LG" overriddenNodes="FCMComposite_1_4">
+      <overriddenAttribute href="mc/err/v1/Err.subflow#Property.LOG_QUEUE"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.QU03_LG" overriddenNodes="FCMComposite_1_10 FCMComposite_1_5 FCMComposite_1_3">
+      <overriddenAttribute href="mch/log/Log.subflow#Property.LOG_QUEUE"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.QU04_RS" overriddenNodes="FCMComposite_1_6">
+      <overriddenAttribute href="ComIbmMQInput.msgnode#Property.queueName"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.QU05_OT" overriddenNodes="FCMComposite_1_7 FCMComposite_1_8">
+      <overriddenAttribute href="ComIbmMQOutput.msgnode#Property.queueName"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.LF02_RS" overriddenNodes="FCMComposite_1_4">
+      <overriddenAttribute href="mc/err/v1/Err.subflow#Property.LOG_FILE"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.LF02_RS" overriddenNodes="FCMComposite_1_10 FCMComposite_1_5 FCMComposite_1_3">
+      <overriddenAttribute href="mch/log/Log.subflow#Property.LOG_FILE"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.LL05_RESP_START" overriddenNodes="FCMComposite_1_3">
+      <overriddenAttribute href="mch/log/Log.subflow#Property.LOG_LEVEL"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.LL06_RESP_FINISH" overriddenNodes="FCMComposite_1_5">
+      <overriddenAttribute href="mch/log/Log.subflow#Property.LOG_LEVEL"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.LL07_RESP_ERROR" overriddenNodes="FCMComposite_1_4">
+      <overriddenAttribute href="mc/err/v1/Err.subflow#Property.LOG_LEVEL"/>
+    </attributeLinks>
+    <attributeLinks promotedAttribute="Property.LL08_RESP_ERROR_REPLY" overriddenNodes="FCMComposite_1_10">
+      <overriddenAttribute href="mch/log/Log.subflow#Property.LOG_LEVEL"/>
+    </attributeLinks>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>

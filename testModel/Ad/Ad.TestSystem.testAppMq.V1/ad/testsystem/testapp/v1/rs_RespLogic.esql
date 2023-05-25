@@ -1,0 +1,45 @@
+BROKER SCHEMA ad.testsystem.testapp.v1
+PATH mc.sync.v1, lbt.bpmutils.v1;
+
+CREATE COMPUTE MODULE rs_RespLogic
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		SET OutputLocalEnvironment = InputLocalEnvironment;
+		DECLARE oper CHAR getSyncParam(PARAM_OPER, Environment);
+		CASE oper
+		WHEN OPER_TEST THEN
+			CALL mapTestResp();
+		END CASE;
+		SET OutputRoot.MQRFH2 = NULL;
+		SET OutputRoot.MQMD = NULL;
+		RETURN TRUE;
+	END;
+	
+	
+	CREATE PROCEDURE mapTestResp()
+	BEGIN
+		DECLARE inJson REFERENCE TO InputRoot.JSON.Data;
+		DECLARE inData REFERENCE TO inJson.data;
+		CREATE LASTCHILD OF OutputRoot.XMLNSC DOMAIN('XMLNSC') NAMESPACE absn NAME 'TEST';
+		DECLARE outXml REFERENCE TO OutputRoot.XMLNSC.*:*[<];
+		SET outXml.(XMLNSC.NamespaceDecl)xmlns:abs = absn;
+		IF inJson.code = 200 AND NOT EXISTS(inData.externalCode[]) THEN
+			
+		ELSE
+			SET outXml.absn:code = COALESCE(inData.externalCode, '-1');
+			SET outXml.absn:msg = COALESCE(inJson.message, inData.details);
+		END IF;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+END MODULE;

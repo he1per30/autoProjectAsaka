@@ -1,0 +1,70 @@
+BROKER SCHEMA ad.testsystem.testapp.v1
+PATH mc.sync.v1, lbt.bpmutils.v1;
+
+DECLARE PARAM_OPER CONSTANT CHAR 'O';
+
+DECLARE OPER_TEST CONSTANT CHAR 'T';
+
+DECLARE absn NAMESPACE 'http://iABS.ru';
+DECLARE ml NAMESPACE 'http://Microloan.CRM.NFO.ru';
+DECLARE ktm NAMESPACE 'http://KATM.NFO.ru';
+DECLARE xsi NAMESPACE 'http://www.w3.org/2001/XMLSchema-instance';
+
+
+CREATE COMPUTE MODULE rq_ReqLogic
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		DECLARE oper CHAR getBPMOperation(InputRoot.XMLNSC.*:*[<]);
+		CASE oper
+		WHEN 'TestRequest' THEN
+			CALL mapTest();
+		ELSE
+			SET OutputRoot.MQMD.CorrelId = InputRoot.MQMD.MsgId;
+			DECLARE nsp NAMESPACE FIELDNAMESPACE(InputRoot.XMLNSC.*:*[<]);
+			CREATE LASTCHILD OF OutputRoot.XMLNSC DOMAIN('XMLNSC') NAMESPACE nsp NAME REPLACE(oper,'Request','Response');
+			DECLARE outXml REFERENCE TO OutputRoot.XMLNSC.*:*[<];
+			CASE nsp
+			WHEN absn THEN
+				SET outXml.absn:code = '405';
+				SET outXml.absn:msg = 'Bad request';
+			WHEN ml THEN
+				SET outXml.ml:ErrorCode = '405';
+				SET outXml.ml:ErrorDescription = 'Bad request';
+			WHEN ktm THEN
+				SET outXml.ktm:result = '405';
+				SET outXml.ktm:resultMessage = 'Bad request';
+			ELSE
+				SET outXml.{nsp}:code = '405';
+				SET outXml.{nsp}:msg = 'Bad request';
+			END CASE;
+			SET Environment.Variables.Sync.Enable = FALSE;
+			PROPAGATE TO TERMINAL 'out1' DELETE NONE;
+			RETURN FALSE;
+		END CASE;
+	END;
+	
+	
+	CREATE PROCEDURE mapTest()
+	BEGIN
+		CALL setSyncParam(PARAM_OPER, OPER_TEST, Environment);
+		DECLARE inXml REFERENCE TO InputRoot.XMLNSC.*:*[<];
+		IF FIELDNAME(inXml) = 'routing' THEN
+			MOVE inXml TO InputRoot.XMLNSC.*:*[<].*:*[<];
+		END IF;
+		CREATE LASTCHILD OF OutputRoot.JSON DOMAIN('JSON') NAME 'Data';
+		DECLARE outJson REFERENCE TO OutputRoot.JSON.Data;
+		SET outJson.method = 'TEST';
+		SET outJson.resourceUrl = '/TEST';
+	END;
+	
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+END MODULE;
