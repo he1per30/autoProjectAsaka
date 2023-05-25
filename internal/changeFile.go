@@ -16,9 +16,16 @@ func ChangeProjectFile(appName string) {
 
 	lines := strings.Split(string(input), "\n")
 	for i, line := range lines {
-		subString := "Ad.TestSystem.testApp.V1"
-		if strings.Contains(line, subString) {
-			lines[i] = strings.Replace(lines[i], subString, appName, -1)
+
+		subStringAd := "Ad.TestSystem.testApp.V1"
+		subStringAc := "Ac.TestSystem.testApp.V1"
+
+		if strings.Contains(line, subStringAc) {
+			lines[i] = strings.Replace(lines[i], subStringAc, appName, -1)
+		}
+
+		if strings.Contains(line, subStringAd) {
+			lines[i] = strings.Replace(lines[i], subStringAd, appName, -1)
 		}
 	}
 
@@ -33,6 +40,7 @@ func ChangeProjectFile(appName string) {
 // ChangeRqMsg Меняет все вхождения testsystem и testapp на части из appName
 func ChangeMsgFlow(dir, appName string) {
 	//rqDir := dir + "rq.msgflow"
+	fmt.Println("пытаемся прочитать из ", dir)
 	input, err := os.ReadFile(dir)
 	splitLowerAppName := strings.Split(strings.ToLower(appName), ".")
 	splitAppName := strings.Split(appName, ".")
@@ -53,6 +61,10 @@ func ChangeMsgFlow(dir, appName string) {
 
 		if strings.Contains(line, "testsystem") {
 			lines[i] = strings.Replace(lines[i], "testsystem", splitLowerAppName[1], -1)
+		}
+
+		if strings.Contains(line, "Ac.TestSystem.testApp.V1") {
+			lines[i] = strings.Replace(lines[i], "Ac.TestSystem.testApp.V1", appName, -1)
 		}
 
 		if strings.Contains(line, "Ad.TestSystem.testApp.V1") {

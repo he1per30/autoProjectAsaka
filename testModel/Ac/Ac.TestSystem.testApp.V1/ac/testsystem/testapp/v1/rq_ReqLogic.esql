@@ -1,0 +1,66 @@
+BROKER SCHEMA ac.testsystem.testapp.v1
+PATH lbt.restutils.v1, mc.log.v1;
+
+DECLARE OPER_TEST CONSTANT CHAR 'OT';
+
+CREATE COMPUTE MODULE rq_ReqLogic
+	DECLARE WS01_TEST EXTERNAL CHAR '';
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputLocalEnvironment = InputLocalEnvironment;
+		SET Environment.Variables.Request = InputRoot;
+		CALL CopyMessageHeaders();
+		DECLARE inJson REFERENCE TO InputRoot.JSON.Data;
+		DECLARE resourceUrl CHAR inJson.resourceUrl;
+		DECLARE method CHAR inJson.method;
+		DECLARE params ROW;
+		
+		CALL loadAuthorizationHeaders(OutputRoot, InputRoot);
+		
+		CASE
+		-- Регистрация отказа по заявке в iABS
+		WHEN checkMethodAndPath(
+			method, 'POST',
+			resourceUrl, '/api/test',
+			params
+			) THEN
+			CALL mapTest(params);
+		ELSE
+			CREATE LASTCHILD OF OutputRoot.JSON DOMAIN('JSON') NAME 'Data';
+			DECLARE json REFERENCE TO OutputRoot.JSON.Data;
+			SET json.method = method;
+			SET json.resourceUrl = resourceUrl;
+			SET json.code = 404;
+			SET json.message = 'Not Found';
+			PROPAGATE TO TERMINAL 'out1';
+			RETURN FALSE;
+		END CASE;	
+		RETURN TRUE;
+	END;
+	
+	
+	CREATE PROCEDURE mapTest(IN params REFERENCE)
+	BEGIN
+		DECLARE inJson REFERENCE TO InputRoot.JSON.Data;
+		DECLARE inHeaders REFERENCE TO inJson.headers;
+		DECLARE inData REFERENCE TO inJson.data;
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestLine.Method = 'POST';
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = WS01_TEST;
+		SET Environment.Variables.Oper = OPER_TEST;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;

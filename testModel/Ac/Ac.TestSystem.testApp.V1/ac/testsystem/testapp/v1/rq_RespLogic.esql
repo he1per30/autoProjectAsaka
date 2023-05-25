@@ -1,0 +1,46 @@
+BROKER SCHEMA ac.testsystem.testapp.v1
+
+
+CREATE COMPUTE MODULE rq_RespLogic
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeadersFromEnvironment();
+		CASE Environment.Variables.Oper
+		WHEN OPER_TEST THEN
+			CALL mapTest();
+		END CASE;	
+		RETURN TRUE;
+	END;
+	
+	
+	CREATE PROCEDURE mapTest()
+	BEGIN
+		CREATE LASTCHILD OF OutputRoot.JSON DOMAIN('JSON') NAME 'Data';
+		DECLARE outJson REFERENCE TO OutputRoot.JSON.Data;
+		DECLARE inJson REFERENCE TO InputRoot.JSON.Data;
+		SET outJson.method = Environment.Variables.Request.JSON.Data.method;
+		SET outJson.resourceUrl = Environment.Variables.Request.JSON.Data.resourceUrl;
+		SET outJson.code = InputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code";
+		CREATE LASTCHILD OF outJson NAME 'data';
+		DECLARE outData REFERENCE TO outJson.data;
+		IF outJson.code = 200 AND inJson.code = '0' THEN
+			--code
+		ELSE
+			SET outData.errorCode = '20001';
+			SET outData.type = 'External';
+			SET outData.actor = ApplicationLabel;
+			SET outData.externalCode VALUE = inJson.code;
+			SET outData.details = inJson.msg;
+		END IF;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeadersFromEnvironment() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(Environment.Variables.Request.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = Environment.Variables.Request.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+END MODULE;

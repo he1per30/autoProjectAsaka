@@ -18,8 +18,15 @@ func RenameFolder(appName string) string {
 		fmt.Println(err)
 	}
 
-	//Переименовываем папку с названием системы адаптера
-	helpPath := newPath + "/ad/"
+	//Переименовываем папку с названием системы адаптера в зависимости от сущности (ac или ad)
+	var helpPath string
+	fmt.Println(serviceSlice, "its service slice")
+	if strings.ToLower(serviceSlice[0]) == "ad" {
+		helpPath = newPath + "/ad/"
+	} else if strings.ToLower(serviceSlice[0]) == "ac" {
+		helpPath = newPath + "/ac/"
+	}
+
 	newPath = helpPath + strings.ToLower(serviceSlice[1])
 	err = os.Rename(helpPath+"/testsystem", newPath)
 	if err != nil {
