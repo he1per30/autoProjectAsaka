@@ -67,7 +67,7 @@ func ChangeMsgFlow(dir, appName string) {
 			lines[i] = strings.Replace(lines[i], ".test.", "."+splitAppName[2]+".", -1)
 		}
 
-		if strings.Contains(line, "TEST.RS") || strings.Contains(line, "TEST.SN") {
+		if strings.Contains(line, "TEST.") || strings.Contains(line, "TEST.SN") {
 			lines[i] = strings.Replace(lines[i], "TEST", strings.ToUpper(appName), -1)
 		}
 	}

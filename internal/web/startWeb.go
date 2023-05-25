@@ -18,7 +18,7 @@ func StartWeb() {
 	log.Println("Starting the HTTP server on port 8080")
 	router := mux.NewRouter()
 
-	router.HandleFunc("/api/create/adapter", postCreateAdapter).Methods("POST")
+	router.HandleFunc("/api/createApp", postCreateAdapter).Methods("POST")
 	err := http.ListenAndServe(":8080", router)
 	if err != nil {
 		log.Fatalln(err)
