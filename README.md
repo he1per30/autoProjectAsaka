@@ -2,7 +2,7 @@
 
 Example:
 Url:
-http://localhost:8080/api/create/adapter 
+http://localhost:8080/api/createApp
 
 Body: 
 {
